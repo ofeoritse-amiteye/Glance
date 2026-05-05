@@ -2,7 +2,7 @@
 
 **Glance** is a Chrome extension (Manifest V3) that reads the main content of the page you’re on, sends it to a small backend API, and shows an AI-generated summary with key points, insights, and estimated reading time. You can highlight extracted keywords on the page and copy the summary as plain text.
 
-The extension uses vanilla HTML, CSS, and JavaScript—no React, no bundler. Load the folder in **Developer mode** and you’re set.
+The extension uses vanilla HTML, CSS, and JavaScript, no React, no bundler. Load the folder in **Developer mode** and you’re set.
 
 ---
 
@@ -90,14 +90,14 @@ Use Glance on normal **`https:`** pages (many `chrome://` URLs and the Chrome We
 ## Security notes
 
 - **Never** commit `server/.env` or embed `GROQ_API_KEY` in the extension.
-- `config.js` only holds the proxy URL—that endpoint is public to anyone who can reach it unless you protect it (auth, rate limits, IP allowlisting, etc.).
+- `config.js` only holds the proxy URL. That endpoint is public to anyone who can reach it unless you protect it (auth, rate limits, IP allowlisting, etc.).
 - User-generated summary text is not injected as raw HTML where it could execute scripts.
 
 ---
 
 ## Optional configuration
 
-- **`GROQ_MODEL`** / **`PORT`** — override in `server/.env` if needed (see `.env.example`).
+- **`GROQ_MODEL`** / **`PORT`** override in `server/.env` if needed (see `.env.example`).
 
 ---
 
