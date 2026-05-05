@@ -95,9 +95,8 @@ Use Glance on normal **`https:`** pages (many `chrome://` URLs and the Chrome We
 
 ---
 
-## Optional tooling
+## Optional configuration
 
-- **`tools/generate-icons.html`** — open in Chrome to regenerate PNG toolbar icons into `icons/`.
 - **`GROQ_MODEL`** / **`PORT`** — override in `server/.env` if needed (see `.env.example`).
 
 ---
