@@ -11,7 +11,7 @@ The extension uses vanilla HTML, CSS, and JavaScript—no React, no bundler. Loa
 - Extracts readable article-style text (heuristics for `<article>`, main regions, or dense `<p>` clusters)
 - Structured output: summary, bullets, insights, reading time, sentiment
 - Modes: **Full summary**, **3 bullets**, **ELI5**
-- **Glass-style** popup UI (`backdrop-filter`, layered cards, gradient backdrop)
+- **Glass-style** popup UI (frosted panels, layered cards, neutral dark backdrop)
 - Summary **caching** per URL and mode in `chrome.storage.local` (1 hour) to avoid duplicate API calls
 - Optional **in-page highlights** from key bullet terms
 - **Proxy architecture**: the Groq API key stays on the server, not in the extension or repo
