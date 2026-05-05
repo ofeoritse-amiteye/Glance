@@ -25,18 +25,6 @@ The extension uses vanilla HTML, CSS, and JavaScript—no React, no bundler. Loa
 3. The **Node server** attaches `GROQ_API_KEY`, calls Groq, normalizes JSON, and returns it.
 4. The worker caches the response and the popup renders it safely (`textContent` / escaped lists).
 
-```
-┌─────────┐    EXTRACT_CONTENT     ┌──────────────┐
-│  Popup  │ ─────────────────────► │ content.js    │
-└────┬────┘ ◄───────────────────── └──────────────┘
-     │
-     │  SUMMARIZE
-     ▼
-┌──────────────┐    POST /api/summarize    ┌─────────────┐    Bearer token    ┌──────┐
-│ background.js │ ─────────────────────────► │ Node proxy  │ ────────────────► │ Groq │
-└──────────────┘ ◄──────────────────────── └─────────────┘ ◄──────────────── └──────┘
-```
-
 ---
 
 ## Requirements
