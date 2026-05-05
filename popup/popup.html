@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="popup.css">
+  <title>Glance</title>
+</head>
+<body>
+
+  <div class="ambient" aria-hidden="true"></div>
+
+  <div class="shell">
+    <header class="glass-bar">
+      <div class="logo">
+        <div class="logo-mark" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M13 2L4.09 12.76a3 3 0 003.94 4.27L7 21l12-12-4-4L13 2z"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-name">Glance</span>
+          <span class="logo-tagline">Page summaries</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="panel">
+      <div id="view-ready" class="view">
+        <div class="glass-card page-preview">
+          <div class="page-title" id="page-title"></div>
+          <div class="page-meta" id="page-meta"></div>
+        </div>
+
+        <button type="button" id="summarize-btn" class="btn-primary btn-full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9.94 17L7 21l-.97-6.93L21 5l-2.93 13.06L11 21l-.06-8.06"/>
+            <circle cx="9" cy="9" r="1.5" fill="currentColor"/>
+          </svg>
+          Summarize this page
+        </button>
+
+        <div class="glass-chip-wrap">
+          <span class="modes-label">Mode</span>
+          <div class="options-row">
+            <button type="button" class="option-chip active" data-mode="full">Full summary</button>
+            <button type="button" class="option-chip" data-mode="brief">3 bullets</button>
+            <button type="button" class="option-chip" data-mode="eli5">ELI5</button>
+          </div>
+        </div>
+
+        <button type="button" id="clear-cache-btn" class="btn-ghost clear-cache-row">Clear cached summaries</button>
+      </div>
+
+      <div id="view-loading" class="view hidden">
+        <div class="glass-card loading-card">
+          <div class="loading-anim" aria-hidden="true">
+            <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+          </div>
+          <div class="loading-text">Reading the page…</div>
+          <div class="loading-sub" id="loading-sub">Extracting content</div>
+        </div>
+      </div>
+
+      <div id="view-result" class="view hidden result-view">
+        <div class="result-header glass-card glass-card-tight">
+          <div class="result-title" id="result-title"></div>
+          <div class="result-badges">
+            <span class="badge" id="badge-time"></span>
+            <span class="badge" id="badge-sentiment"></span>
+          </div>
+        </div>
+
+        <div class="glass-card section-card section" id="section-summary">
+          <div class="section-label">Summary</div>
+          <div class="summary-text" id="summary-text"></div>
+        </div>
+
+        <div class="glass-card section-card section" id="section-bullets">
+          <div class="section-label">Key points</div>
+          <ul class="bullets" id="bullets-list"></ul>
+        </div>
+
+        <div class="glass-card section-card section" id="section-insights">
+          <div class="section-label">Insights</div>
+          <ul class="insights" id="insights-list"></ul>
+        </div>
+
+        <div class="result-actions">
+          <button type="button" id="copy-btn" class="btn-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M5 15H4a2 2 0 01-2-2V6a2 2 0 012-2h7a2 2 0 012 2v1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <span id="copy-btn-label">Copy</span>
+          </button>
+          <button type="button" id="highlight-btn" class="btn-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 20l8-13 8 13"/></svg>
+            Highlight
+          </button>
+          <button type="button" id="new-summary-btn" class="btn-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 12a8 8 0 018-8V2l4 4-4 4V8a6 6 0 10-6 6"/></svg>
+            New
+          </button>
+        </div>
+      </div>
+
+      <div id="view-error" class="view hidden">
+        <div class="glass-card error-card">
+          <div class="error-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+          </div>
+          <div class="error-title" id="error-title">Something went wrong</div>
+          <div class="error-message" id="error-message"></div>
+          <button type="button" id="retry-btn" class="btn-primary btn-full">Try again</button>
+        </div>
+      </div>
+    </main>
+    <footer class="footer-accent" aria-hidden="true"></footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

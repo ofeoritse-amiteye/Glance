@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Glance Icon Generator</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 24px; background: #111; color: #eee; }
+    button { padding: 10px 14px; border-radius: 8px; border: none; background: #4F46E5; color: #fff; cursor: pointer; }
+    canvas { margin: 8px; border: 1px solid #333; vertical-align: top; }
+    p { color: #aaa; max-width: 520px; }
+  </style>
+</head>
+<body>
+  <h1>Glance icons</h1>
+  <p>Open this HTML file locally in Chrome, click the button below, then save each download into <code>glance/icons/</code> as icon16.png, icon32.png, icon48.png, icon128.png (names match the filenames suggested in the prompts).</p>
+  <button id="gen" type="button">Download all PNG sizes</button>
+  <div id="previews"></div>
+  <script>
+    const BG = '#4F46E5'
+
+    function draw(size) {
+      const c = document.createElement('canvas')
+      c.width = size
+      c.height = size
+      const ctx = c.getContext('2d')
+      ctx.fillStyle = BG
+      ctx.fillRect(0, 0, size, size)
+      ctx.fillStyle = '#ffffff'
+      ctx.textAlign = 'center'
+      ctx.textBaseline = 'middle'
+      ctx.font = '700 ' + Math.max(Math.floor(size * 0.55), 8) + 'px system-ui, Segoe UI, sans-serif'
+      ctx.fillText('G', size / 2, size / 2 + size * 0.02)
+      return c
+    }
+
+    function download(canvas, filename) {
+      canvas.toBlob((blob) => {
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = filename
+        a.click()
+        URL.revokeObjectURL(url)
+      }, 'image/png')
+    }
+
+    document.getElementById('gen').addEventListener('click', () => {
+      const root = document.getElementById('previews')
+      root.textContent = ''
+      ;[16, 32, 48, 128].forEach((size, i) => {
+        const canvas = draw(size)
+        root.appendChild(canvas)
+        setTimeout(() => download(canvas, 'icon' + size + '.png'), i * 400)
+      })
+    })
+  </script>
+</body>
+</html>
